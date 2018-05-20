@@ -17,9 +17,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cascade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,10 +36,12 @@ public class Employee {
     private Integer Id;
 
     @Column(name = "NAME")
+    @NotBlank
     private String name;
 
     @Column(name = "TYPE")
     @Enumerated(EnumType.STRING)
+    @NotNull
     private EmployeeType type;
 
     @ManyToOne
@@ -55,7 +57,7 @@ public class Employee {
     protected Employee() {
     }
 
-    public Employee(@NotNull String name, @NotNull EmployeeType type, Employee manager) {
+    public Employee(String name, EmployeeType type, Employee manager) {
 
 	if (!EmployeeType.isTopLevel(type) && Objects.isNull(manager)) {
 	    /**
