@@ -2,7 +2,6 @@ package com.momenton.codechallenge.companyhierarchy.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,8 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,13 +32,11 @@ public class Employee {
     @Column(name = "EMP_ID")
     private Integer Id;
 
-    @Column(name = "NAME")
-    @NotBlank
+    @Column(name = "NAME")    
     private String name;
 
     @Column(name = "TYPE")
-    @Enumerated(EnumType.STRING)
-    @NotNull
+    @Enumerated(EnumType.STRING)    
     private EmployeeType type;
 
     @ManyToOne
@@ -57,20 +52,28 @@ public class Employee {
     protected Employee() {
     }
 
-    public Employee(String name, EmployeeType type, Employee manager) {
+    /**
+     * custom constructor 
+     * 
+     * @param name - employee name
+     * @param type - employee type
+     * @param manager - manager of the employee, null for top level employee
+     */
+    public Employee(String name, EmployeeType type) {
 
-	if (!EmployeeType.isTopLevel(type) && Objects.isNull(manager)) {
-	    /**
-	     * prevent the construction as for every non top level employees should have a
-	     * manager. fair assumption
-	     */
-	    LOG.error("Every non top employees should have a manager.");
-	    throw new IllegalArgumentException("Unsatisfied arguments");
+	if ((name == null) || name.trim().equals("")) {
+	    LOG.error("Employee should have a name");
+	    throw new IllegalArgumentException("Unsatisfied arguments");	    
 	}
 	
+	if (type == null) {
+	    LOG.error("Employee type should be there for an employee");
+	    throw new IllegalArgumentException("Unsatisfied arguments");
+	}
+		
 	this.name = name;
 	this.type = type;
-	this.manager = manager;
+	
     }
 
     /**
@@ -126,14 +129,27 @@ public class Employee {
     }
 
     /**
+     * @param manager the manager to set
+     */
+    public void setManager(Employee manager) {
+        this.manager = manager;
+    }
+
+    /**
      * @return the manager
      */
     public Employee getManager() {
 	return manager;
     }
     
+    /**
+     * construct the team members of this employee
+     * @param emp - team member
+     */
     public void addToTeam(Employee emp) {
+	emp.setManager(this);
 	team.add(emp);
     }
+
 
 }

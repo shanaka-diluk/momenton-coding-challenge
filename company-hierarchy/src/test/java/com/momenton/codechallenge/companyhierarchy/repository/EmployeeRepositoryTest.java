@@ -1,16 +1,11 @@
 package com.momenton.codechallenge.companyhierarchy.repository;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,64 +16,48 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.momenton.codechallenge.companyhierarchy.model.Employee;
 import com.momenton.codechallenge.companyhierarchy.model.EmployeeType;
 
+/**
+ * repository test cases
+ *
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class EmployeeRepositoryTest {
 
     @Autowired
     EmployeeRepository repo;
-    
-    @Autowired
-    Validator validator;
-    
-    @Test    
+
+    @Test
     public void testPersistHierarchy() {
-	
-	Employee ceo = new Employee("John Citizen",EmployeeType.CEO, null);
-	ceo.addToTeam(new Employee("Bob Harper", EmployeeType.MANAGER, ceo) );
-	ceo.addToTeam(new Employee("David Miller", EmployeeType.MANAGER, ceo));
-	
+
+	Employee ceo = new Employee("John Citizen", EmployeeType.CEO);
+	ceo.addToTeam(new Employee("Bob Harper", EmployeeType.MANAGER));
+	ceo.addToTeam(new Employee("David Miller", EmployeeType.MANAGER));
+
 	ceo = repo.save(ceo);
 	assertNotNull(ceo.getTeam());
 	assertEquals(2, ceo.getTeam().size());
-	
-	
+
 	Optional<String> ret = ceo.getTeam().stream().map(Employee::getName).filter(Arrays.asList("Bob Harper", "David Miller")::contains).findFirst();
-	
+
 	assertTrue(ret.isPresent());
-		
+
     }
-    
-    @Test(expected = IllegalArgumentException.class)    
-    public void testNonTopLevelWithoutManager() {
-	/**
-	 * non top level employee without a manager
-	 */
-	new Employee("David Miller", EmployeeType.MANAGER, null);
-    }
-    
-    @Test    
+
+
+    @Test(expected = IllegalArgumentException.class)
     public void testNullName() {
-	
-	Set<ConstraintViolation<Employee>> valSet = validator.validate(new Employee(null, EmployeeType.CEO, null));
-	assertFalse(valSet.isEmpty());
-
-	valSet = validator.validate(new Employee("", EmployeeType.CEO, null));
-	assertFalse(valSet.isEmpty());
-
-	valSet = validator.validate(new Employee("   ", EmployeeType.CEO, null));
-	assertFalse(valSet.isEmpty());
+	new Employee(null, EmployeeType.CEO);
     }
-    
-    @Test    
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testEmptyName() {
+	new Employee("  ", EmployeeType.CEO);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void testNullEmployeeType() {
-	
-	Employee ceo = new Employee("CEO", EmployeeType.CEO, null);
-	Set<ConstraintViolation<Employee>> valSet = validator.validate(new Employee("name", null, ceo));
-	assertFalse(valSet.isEmpty());
-
-
+	new Employee("David Miller", null);
     }
-    
-    
+
 }

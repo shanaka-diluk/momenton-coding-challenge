@@ -5,10 +5,13 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import io.swagger.annotations.ApiModel;
+
 /**
  * view representation of the hierarchy.
  * 
  */
+@ApiModel(description = "Details about the hierarchy view")
 public class HierarchyView {
 
     /**

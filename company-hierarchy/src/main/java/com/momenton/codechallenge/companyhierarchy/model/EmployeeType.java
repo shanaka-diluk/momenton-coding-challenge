@@ -22,24 +22,22 @@ public enum EmployeeType {
     private static EmployeeType[] leastLevelTypes = {EmployeeType.NORMAL};
     
     /**
-     * checks whether argument belongs to a top level type
+     * checks whether this belongs to a top level type
      * 
-     * @param type - <code>EmployeeType</code> to be checked
      * @return true/false
      */
-    public static boolean isTopLevel(EmployeeType type) {
-	Optional<EmployeeType> foundObj = Arrays.stream(topLevelTypes).filter(ele -> ele.equals(type)).findFirst();
+    public boolean isTopLevel() {
+	Optional<EmployeeType> foundObj = Arrays.stream(topLevelTypes).filter(ele -> ele.equals(this)).findFirst();
 	return foundObj.isPresent();
     }
     
     /**
-     * checks whether argument belongs to a least level type
+     * checks whether this belongs to a least level type
      * 
-     * @param type - <code>EmployeeType</code> to be checked
      * @return true/false
      */
-    public static boolean isLeastLevel(EmployeeType type) {
-	Optional<EmployeeType> foundObj = Arrays.stream(leastLevelTypes).filter(ele -> ele.equals(type)).findFirst();
+    public boolean isLeastLevel() {
+	Optional<EmployeeType> foundObj = Arrays.stream(leastLevelTypes).filter(ele -> ele.equals(this)).findFirst();
 	return foundObj.isPresent();
 	
     }

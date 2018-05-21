@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.util.CollectionUtils;
 
 import com.momenton.codechallenge.companyhierarchy.model.Employee;
-import com.momenton.codechallenge.companyhierarchy.model.EmployeeType;
 import com.momenton.codechallenge.companyhierarchy.view.HierarchyView;
 
 /**
@@ -53,7 +52,7 @@ public class TransformerFactory {
 	HierarchyView view = new HierarchyView();
 	view.setName(emp.getName());
 
-	if (!EmployeeType.isLeastLevel(emp.getType())) {
+	if (!emp.getType().isLeastLevel()) {
 	    /**
 	     * least level does not have any team members
 	     */
