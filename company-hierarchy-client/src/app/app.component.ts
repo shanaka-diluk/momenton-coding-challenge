@@ -9,19 +9,11 @@ import { HierarchyView } from './models/hierarchy-view.model'
 })
 export class AppComponent implements OnInit {
 
-	hierarchyView: HierarchyView[];
-	
-	//hierarchy = '[{"name":"Jamie","subHierarchy":[{"name":"Alan","subHierarchy":[{"name":"Martin"},{"name":"Alex"}]},{"name":"Steve","subHierarchy":[{"name":"David"}]}]}]';
-  	
-  	title = 'app';
+  	title = 'Acme Organization Hierarchy';
 
 	constructor(private hierarchyService: HierarchyService) {
 	}
 
 	ngOnInit() {
-	    this.hierarchyService.getFullHierarchy()
-	      .subscribe( (data: HierarchyView[]) => {
-	        this.hierarchyView = data;
-	      });
-	  };
+	}
 }

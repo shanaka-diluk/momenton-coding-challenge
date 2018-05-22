@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HierarchyService } from '../services/hierarchy.service';
+import { HierarchyView } from '../models/hierarchy-view.model'
 
 @Component({
   selector: 'app-hierarchy',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HierarchyComponent implements OnInit {
 
-  constructor() { }
+	hierarchyView: HierarchyView[];
 
-  ngOnInit() {
-  }
+	constructor(private hierarchyService: HierarchyService) {
+	}
+
+	ngOnInit() {
+	    this.hierarchyService.getFullHierarchy()
+	      .subscribe( (data: HierarchyView[]) => {          
+	        this.hierarchyView = data;
+	      });
+	}
 
 }
