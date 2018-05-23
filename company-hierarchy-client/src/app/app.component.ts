@@ -9,7 +9,7 @@ import { HierarchyView } from './models/hierarchy-view.model'
 })
 export class AppComponent implements OnInit {
 
-  	title = 'Acme Organization Hierarchy';
+  	title = 'Acme Organisation Hierarchy';
 
 	constructor(private hierarchyService: HierarchyService) {
 	}
