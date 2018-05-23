@@ -10,7 +10,8 @@ import { HierarchyView } from '../models/hierarchy-view.model'
 export class HierarchyComponent implements OnInit {
 
 	hierarchyView: HierarchyView[];
-
+	error;
+	
 	constructor(private hierarchyService: HierarchyService) {
 	}
 
@@ -18,7 +19,9 @@ export class HierarchyComponent implements OnInit {
 	    this.hierarchyService.getFullHierarchy()
 	      .subscribe( (data: HierarchyView[]) => {          
 	        this.hierarchyView = data;
-	      });
+	      },
+	      error => this.error = error
+	      );
 	}
 
 }
