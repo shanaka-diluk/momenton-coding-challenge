@@ -1,10 +1,13 @@
-
-<li><h4><span class="label label-success">{{viewItem.name}}</span></h4></li>
+<li>
+	<h3>
+		<span class="label label-primary">{{viewItem.name}}</span>
+	</h3>
+</li>
 
 <div *ngIf="viewItem.subHierarchy">
-
 	<ul>
-		<app-hierarchy-item *ngFor="let sub of viewItem.subHierarchy" [viewItem] = "sub"></app-hierarchy-item>
+		<app-hierarchy-item *ngFor="let sub of viewItem.subHierarchy"
+			[viewItem]="sub"></app-hierarchy-item>
 	</ul>
 
 </div>
