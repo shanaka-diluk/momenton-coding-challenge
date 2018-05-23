@@ -1,5 +1,7 @@
 # momenton-coding-challenge
 
+Displays a hierarchical model for employees in a company. Application is separated into two modules, Client and Server.
+
 #### Modules
 ---
 - **company-hierarchy-client**
@@ -75,13 +77,16 @@ Server module of the application implemented as a RESTful web service.
 
 2. Change directory to company-hierarchy
 
-3. Run the server
+3. Update the following file for initial set of data.
+  data.sql in src/main/resources
+
+4. Run the server
   mvn spring-boot:run
 
-4. Server will be available at
+5. Server will be available at
   http://localhost:8080/acme-portal
 
-5. Swagger documentation of the RESTful API is available on the following urls.
+6. Swagger documentation of the RESTful API is available on the following urls.
   http://localhost:8080/acme-portal/v2/api-docs
   http://localhost:8080/acme-portal/swagger-ui.html
 ```
