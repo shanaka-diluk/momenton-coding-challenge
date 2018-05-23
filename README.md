@@ -77,6 +77,9 @@ Server module of the application implemented as a RESTful web service.
 4. Server will be available at
   http://localhost:8080/acme-portal
 
+5. Swagger documentation of the RESTful API is available on the following urls.
+  http://localhost:8080/acme-portal/v2/api-docs
+  http://localhost:8080/acme-portal/swagger-ui.html
 ```
 
 ###### Test coverage
