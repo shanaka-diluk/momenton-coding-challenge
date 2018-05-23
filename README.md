@@ -48,6 +48,10 @@
 
     Distribution files will be available on 'dist' folder.
   ```
+###### Test coverage
+  Tests are run using Karma/Jasmine.
+
+  Total test cases : 10
 
 ---
 - **company-hierarchy**
