@@ -10,7 +10,7 @@ Displays a hierarchical model for employees in a company. Application is separat
   Client user interface module of the application which connects to the backend service engine. This can be deployed to any server or the same server as the backend service engine. Currently proxy has been configured to connect to the following backend url.
 
   ```sh
-  http://localhost:8080/aceme-portal
+  http://localhost:8080/acme-portal
   ```
   Configure this url appropriately in the file,
 
@@ -40,7 +40,7 @@ Displays a hierarchical model for employees in a company. Application is separat
     npm start
 
   5. Application client will be available at
-    http://localhost:4200
+    http://localhost:4200/acme-client
 
   6. Run test
     npm test
