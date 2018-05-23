@@ -17,4 +17,9 @@ describe('HierarchyItemComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should show view item', () => {
+    component.viewItem = {"name":"John Citizen", "subHierarchy":[]};
+    expect(fixture.nativeElement.querySelector('span').textContent).toEqual('John Citizen');
+  });
 });
