@@ -4,7 +4,7 @@
 <div *ngIf="viewItem.subHierarchy">
 
 	<ul>
-		<app-hierarchy-item *ngFor="let sub of viewItem.subHierarchy; let i = index" [viewItem] = "sub" [pos]="pos+1"></app-hierarchy-item>
+		<app-hierarchy-item *ngFor="let sub of viewItem.subHierarchy" [viewItem] = "sub"></app-hierarchy-item>
 	</ul>
 
 </div>

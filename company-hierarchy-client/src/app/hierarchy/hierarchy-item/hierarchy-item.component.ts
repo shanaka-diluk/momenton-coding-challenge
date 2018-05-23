@@ -9,8 +9,7 @@ import { HierarchyView } from '../../models/hierarchy-view.model'
 export class HierarchyItemComponent implements OnInit {
 
 	@Input() viewItem: HierarchyView;
-  @Input() pos:  number;
-
+  
   constructor() { }
 
   ngOnInit() {
