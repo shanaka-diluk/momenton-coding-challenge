@@ -1,8 +1,10 @@
-import { async, ComponentFixture, TestBed, tick,  fakeAsync } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick,  fakeAsync} from '@angular/core/testing';
 import { HierarchyService } from '../services/hierarchy.service';
 import { HierarchyComponent } from './hierarchy.component';
 import { HierarchyItemComponent } from './hierarchy-item/hierarchy-item.component';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs'
+import { HierarchyView } from '../models/hierarchy-view.model'
+
 
 describe('HierarchyComponent', () => {
   let component: HierarchyComponent;
@@ -10,16 +12,13 @@ describe('HierarchyComponent', () => {
   let mockHierarchyService: HierarchyService;
 
   class MockHierarchyService {
-    public getFullHierarchy() {
-      return {subscribe:() => {
-        [{"name":"Jamie","subHierarchy":[{"name":"Alan","subHierarchy":[{"name":"Martin"},{"name":"Alex"}]},{"name":"Steve","subHierarchy":[{"name":"David"}]}]}];
-      }};
+    public getFullHierarchy() : Observable<HierarchyView[]>  {
+      return of([{"name":"Jamie","subHierarchy":[{"name":"Alan","subHierarchy":[{"name":"Martin", "subHierarchy":[]},{"name":"Alex", "subHierarchy":[]}]},{"name":"Steve","subHierarchy":[{"name":"David", "subHierarchy":[]}]}]}])
     }
 
-    public getHierarchy(empId) {
-      return {subscribe:() => {
-        {"name":"Steve", "subHierarchy": [{"name":"David"}]};
-      }};
+    public getHierarchy(empId:number) : Observable<HierarchyView> {
+
+      return of({"name" :"Steve","subHierarchy": [{"name":"David", "subHierarchy":[]}]});
     }
   }
 
@@ -27,10 +26,10 @@ describe('HierarchyComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ HierarchyComponent, HierarchyItemComponent],
       providers: [HierarchyComponent, {provide : HierarchyService, useClass: MockHierarchyService}]
-    })
+    }).compileComponents()
 
     fixture = TestBed.createComponent(HierarchyComponent);
-    component = TestBed.get(HierarchyComponent);//fixture.componentInstance;
+    component = TestBed.get(HierarchyComponent);
     mockHierarchyService = TestBed.get(HierarchyService);
     //fixture.detectChanges();
   });
@@ -52,16 +51,15 @@ describe('HierarchyComponent', () => {
   });
 
   it('should return hierarchy for manager from mock service', () => {
-    mockHierarchyService.getHierarchy(1).subscribe((data) => {
-      expect(data.name).toBe('Steve');
-      expect(data.subHierarchy.length).toBe(1);
+    mockHierarchyService.getHierarchy(100).subscribe((input) => {      
+      expect(input.name).toBe('Steve');
+      expect(input.subHierarchy.length).toBe(1);
     });
   });
 
   it('should have hierarchy initalized after init',  () => {
     component.ngOnInit();
-    //tick();
-    console.log(component.hierarchyView);
+    fixture.detectChanges();
     expect(component.hierarchyView).toBeTruthy();
   });
 

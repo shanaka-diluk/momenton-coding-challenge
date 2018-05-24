@@ -35,7 +35,7 @@ describe('AppComponent', () => {
 
   it('should have as title "Acme Organization Hierarchy"', () => {
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Acme Organization Hierarchy');
+    expect(app.title).toEqual('Acme Organisation Hierarchy');
   });
 
   it('should render title in a h2 with content component.title', () => {

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HierarchyItemComponent } from './hierarchy-item.component';
 
 describe('HierarchyItemComponent', () => {
@@ -11,7 +11,6 @@ describe('HierarchyItemComponent', () => {
     })
     fixture = TestBed.createComponent(HierarchyItemComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -20,6 +19,7 @@ describe('HierarchyItemComponent', () => {
 
   it('should show view item', () => {
     component.viewItem = {"name":"John Citizen", "subHierarchy":[]};
+    fixture.detectChanges();    
     expect(fixture.nativeElement.querySelector('span').textContent).toEqual('John Citizen');
   });
 });
